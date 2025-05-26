@@ -7,9 +7,9 @@ toggle_firewall() {
 	echo "Toggling UFW firewall..."
 	log_message "Toggling firewall" "SECURITY"
 	if sudo ufw status | grep -q "inactive"; then
-    		sudo ufw enable
+		sudo ufw enable
 	else
-    		sudo ufw disable
+		sudo ufw disable
 	fi
 
 }
