@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 check_ufw() {
     if ! command -v ufw &>/dev/null; then
@@ -41,10 +41,20 @@ check_suricata() {
     fi
 }
 
+check_tcpdump() {
+    if ! command -v tcpdump &>/dev/null; then
+        echo "NOT INSTALLED"
+        return
+    else
+        echo "AVAILABLE"
+    fi
+}
+
 case "$1" in
     ufw) check_ufw ;;
     fail2ban) check_fail2ban ;;
     suricata) check_suricata ;;
+    tcpdump) check_tcpdump ;;
     *)
         echo "NOT INSTALLED"
         ;;
