@@ -6,7 +6,12 @@ source ../nsms-core/logger.sh
 toggle_firewall() {
 	echo "Toggling UFW firewall..."
 	log_message "Toggling firewall" "SECURITY"
-	sudo ufw status | grep -q "inactive" && sudo ufw enable || sudo ufw disable
+	if sudo ufw status | grep -q "inactive"; then
+    		sudo ufw enable
+	else
+    		sudo ufw disable
+	fi
+
 }
 
 view_rules() {
@@ -16,8 +21,8 @@ view_rules() {
 }
 
 add_new_rule() {
-	read -p "Enter port/service/IP: " psip
-	read -p "Allow or deny? (ALLOW/DENY): " action
+	read -pr "Enter port/service/IP: " psip
+	read -pr "Allow or deny? (ALLOW/DENY): " action
 	log_message "Adding rule: $action port/service/IP: $psip" "SECURITY"
 	if [[ "$action" == "ALLOW" ]]; then
 		sudo ufw allow "$psip"
@@ -30,7 +35,7 @@ delete_rule() {
 	echo "Current rules:"
 	log_message "Viewing UFW rules" "INFO"
 	sudo ufw status numbered
-	read -p "Enter rule number to delete: " rule_num
+	read -pr "Enter rule number to delete: " rule_num
 	log_message "Deleting rule: $rule_num" "SECURITY"
 	sudo ufw delete "$rule_num"
 }
