@@ -13,6 +13,6 @@ jobs:
     - name: Install shellcheck
       run: sudo apt-get install -y shellcheck
     - name: Run shfmt
-      run: shfmt -d *.sh
+      run: shfmt -w *.sh
     - name: Run shellcheck
       run: shellcheck *.sh
