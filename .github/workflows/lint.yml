@@ -6,7 +6,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Update apt
+      run: sudo apt-get update -y
+    - name: Install shfmt
+      run: sudo apt-get install -y shfmt
     - name: Install shellcheck
-      run: sudo apt-get update && sudo apt-get install -y shellcheck
+      run: sudo apt-get install -y shellcheck
+    - name: Run shfmt
+      run: shfmt -d *.sh
     - name: Run shellcheck
       run: shellcheck *.sh
