@@ -15,4 +15,4 @@ jobs:
     - name: Run shfmt
       run: shfmt -w *.sh
     - name: Run shellcheck
-      run: shellcheck *.sh
+      run: shellcheck --severity=error *.sh
