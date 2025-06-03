@@ -13,7 +13,7 @@ live_capture() {
 	fi
 
 	echo "Capturing $packet_count packets on interface '$interface'..."
-	sudo tcpdump -i "$interface" "$filter_expr" -c "$packet_count"
+	tcpdump -i "$interface" "$filter_expr" -c "$packet_count"
 }
 
 live_pcap_capture() {
@@ -29,7 +29,7 @@ live_pcap_capture() {
 	fi
 
 	echo "Starting live capture on $interface (filter: '$filter_expr') for $duration seconds or $packet_count packets..."
-	sudo timeout "$duration" tcpdump -i "$interface" "$filter_expr" -c "$packet_count" -U -w - | tee >(tcpdump -r -) >"$output_file"
+	timeout "$duration" tcpdump -i "$interface" "$filter_expr" -c "$packet_count" -U -w - | tee >(tcpdump -r -) >"$output_file"
 }
 
 list_interfaces() {

@@ -12,17 +12,17 @@ toggle_suricata() {
 	log_message "Toggling Suricata IDS" "SECURITY"
 
 	if systemctl is-active --quiet suricata; then
-		sudo systemctl stop suricata
+		systemctl stop suricata
 		log_message "Suricata stopped." "SECURITY"
 	else
-		sudo systemctl start suricata
+		systemctl start suricata
 		log_message "Suricata started." "SECURITY"
 	fi
 }
 
 restart_suricata() {
 	log_message "Restarting Suricata..." "SECURITY"
-	sudo systemctl restart suricata
+	systemctl restart suricata
 }
 
 view_fast_log() {
@@ -61,7 +61,7 @@ update_rules() {
 	if ! command -v suricata-update &>/dev/null; then
 		echo -e "\e[31msuricata-update not installed. Install it to update rules.\e[0m"
 	else
-		sudo suricata-update
+		suricata-update
 	fi
 }
 

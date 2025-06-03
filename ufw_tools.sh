@@ -6,10 +6,10 @@ source ../nsms-core/logger.sh
 toggle_firewall() {
 	echo "Toggling UFW firewall..."
 	log_message "Toggling firewall" "SECURITY"
-	if sudo ufw status | grep -q "inactive"; then
-		sudo ufw enable
+	if ufw status | grep -q "inactive"; then
+		ufw enable
 	else
-		sudo ufw disable
+		ufw disable
 	fi
 
 }
@@ -17,7 +17,7 @@ toggle_firewall() {
 view_rules() {
 	echo "Viewing current UFW rules..."
 	log_message "Viewing current UFW rules" "INFO"
-	sudo ufw status numbered
+	ufw status numbered
 }
 
 add_new_rule() {
@@ -25,38 +25,38 @@ add_new_rule() {
 	read -pr "Allow or deny? (ALLOW/DENY): " action
 	log_message "Adding rule: $action port/service/IP: $psip" "SECURITY"
 	if [[ "$action" == "ALLOW" ]]; then
-		sudo ufw allow "$psip"
+		ufw allow "$psip"
 	else
-		sudo ufw deny "$psip"
+		ufw deny "$psip"
 	fi
 }
 
 delete_rule() {
 	echo "Current rules:"
 	log_message "Viewing UFW rules" "INFO"
-	sudo ufw status numbered
+	ufw status numbered
 	read -pr "Enter rule number to delete: " rule_num
 	log_message "Deleting rule: $rule_num" "SECURITY"
-	sudo ufw delete "$rule_num"
+	ufw delete "$rule_num"
 }
 
 edit_rules() {
 	echo "Opening UFW config for editing..."
 	log_message "Opening rules file in nano" "SECURITY"
-	sudo nano /etc/ufw/user.rules
+	nano /etc/ufw/user.rules
 	echo "Don't forget to reload UFW if you made changes."
 }
 
 reset_firewall() {
 	echo "Resetting UFW to default settings..."
 	log_message "Firewall reset to default settings" "SECURITY"
-	sudo ufw reset
+	ufw reset
 }
 
 show_logs() {
 	echo "Showing UFW logs..."
 	log_message "Displaying logs" "INFO"
-	sudo journalctl -u ufw --no-pager
+	journalctl -u ufw --no-pager
 }
 
 # Dispatcher
