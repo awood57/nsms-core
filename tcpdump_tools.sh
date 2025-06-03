@@ -3,9 +3,9 @@
 source ../nsms-core/logger.sh
 
 live_capture() {
-	read -p "Enter interface (e.g., eth0): " interface
-	read -p "Enter filter expression (or leave blank): " filter_expr
-	read -p "Enter packet count: " packet_count
+	read -pr "Enter interface (e.g., eth0): " interface
+	read -pr "Enter filter expression (or leave blank): " filter_expr
+	read -pr "Enter packet count: " packet_count
 
 	if [[ -z "$interface" || -z "$packet_count" ]]; then
 		echo "Interface and packet count are required."
@@ -13,15 +13,15 @@ live_capture() {
 	fi
 
 	echo "Capturing $packet_count packets on interface '$interface'..."
-	sudo tcpdump -i "$interface" $filter_expr -c "$packet_count"
+	sudo tcpdump -i "$interface" "$filter_expr" -c "$packet_count"
 }
 
 live_pcap_capture() {
-	read -p "Enter interface (e.g., eth0): " interface
-	read -p "Enter filter expression (or leave blank): " filter_expr
-	read -p "Enter output file name (e.g., capture.pcap): " output_file
-	read -p "Enter packet count: " packet_count
-	read -p "Enter duration in seconds: " duration
+	read -pr "Enter interface (e.g., eth0): " interface
+	read -pr "Enter filter expression (or leave blank): " filter_expr
+	read -pr "Enter output file name (e.g., capture.pcap): " output_file
+	read -pr "Enter packet count: " packet_count
+	read -pr "Enter duration in seconds: " duration
 
 	if [[ -z "$interface" || -z "$output_file" || -z "$packet_count" || -z "$duration" ]]; then
 		echo "All fields are required."
@@ -29,7 +29,7 @@ live_pcap_capture() {
 	fi
 
 	echo "Starting live capture on $interface (filter: '$filter_expr') for $duration seconds or $packet_count packets..."
-	sudo timeout "$duration" tcpdump -i "$interface" $filter_expr -c "$packet_count" -U -w - | tee >(tcpdump -r -) >"$output_file"
+	sudo timeout "$duration" tcpdump -i "$interface" "$filter_expr" -c "$packet_count" -U -w - | tee >(tcpdump -r -) >"$output_file"
 }
 
 list_interfaces() {
