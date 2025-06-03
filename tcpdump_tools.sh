@@ -34,7 +34,7 @@ live_pcap_capture() {
 
 list_interfaces() {
 	echo "Available network interfaces:"
-	sudo tcpdump -D
+	tcpdump -D
 }
 
 show_tcpdump_help() {
