@@ -3,9 +3,9 @@
 source ../nsms-core/logger.sh
 
 live_capture() {
-	read -pr "Enter interface (e.g., eth0): " interface
-	read -pr "Enter filter expression (or leave blank): " filter_expr
-	read -pr "Enter packet count: " packet_count
+	read -r -p "Enter interface (e.g., eth0): " interface
+	read -r -p "Enter filter expression (or leave blank): " filter_expr
+	read -r -p "Enter packet count: " packet_count
 
 	if [[ -z "$interface" || -z "$packet_count" ]]; then
 		echo "Interface and packet count are required."
@@ -17,11 +17,11 @@ live_capture() {
 }
 
 live_pcap_capture() {
-	read -pr "Enter interface (e.g., eth0): " interface
-	read -pr "Enter filter expression (or leave blank): " filter_expr
-	read -pr "Enter output file name (e.g., capture.pcap): " output_file
-	read -pr "Enter packet count: " packet_count
-	read -pr "Enter duration in seconds: " duration
+	read -r -p "Enter interface (e.g., eth0): " interface
+	read -r -p "Enter filter expression (or leave blank): " filter_expr
+	read -r -p "Enter output file name (e.g., capture.pcap): " output_file
+	read -r -p "Enter packet count: " packet_count
+	read -r -p "Enter duration in seconds: " duration
 
 	if [[ -z "$interface" || -z "$output_file" || -z "$packet_count" || -z "$duration" ]]; then
 		echo "All fields are required."
