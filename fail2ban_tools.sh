@@ -56,7 +56,8 @@ unban_ip() {
 	fi
 
 	# List jails
-	local jails=$(fail2ban-client status | grep 'Jail list' | cut -d: -f2 | tr ',' '\n' | awk '{$1=$1};1')
+	local jails
+	jails=$(fail2ban-client status | grep 'Jail list' | cut -d: -f2 | tr ',' '\n' | awk '{$1=$1};1')
 
 	for jail in $jails; do
 		echo "Attempting to unban $ip from jail: $jail"
@@ -88,8 +89,8 @@ case "$1" in
 toggle_fail2ban) toggle_fail2ban ;;
 view_active_jails) view_active_jails ;;
 view_fail2ban_logs) view_fail2ban_logs ;;
-search_logs_for_ip) search_logs_for_ip ;;
-unban_ip) unban_ip ;;
+search_logs_for_ip) search_logs_for_ip "$@" ;;
+unban_ip) unban_ip "$@" ;;
 edit_fail2ban_conmfig) edit_fail2ban_config ;;
 restart_fail2ban) restart_fail2ban ;;
 *) echo -e "${RED}Invalid Action: $1${NC}" ;;
